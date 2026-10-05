@@ -1,0 +1,206 @@
+:root {
+  /* Palet dari logo dan portofolio Sibero: abu arang, putih, hijau lime, hijau sage */
+  --bg: #111512;
+  --surface: #1a201b;
+  --line: #2b332c;
+  --lime: #8fd14f;
+  --sage: #7a9570;
+  --text: #f1f3ef;
+  --muted: #a3ada4;
+  --radius: 10px;
+  --wrap: 1120px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+  line-height: 1.65; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+section { padding: 88px 0; }
+h1, h2, h3 { font-weight: 300; line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.6rem, 7vw, 5rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: 0; }
+p { margin: 0 0 12px; max-width: 62ch; color: var(--muted); }
+
+.btn {
+  display: inline-block; padding: 13px 24px; border-radius: 999px; font-weight: 600;
+  text-decoration: none; border: 1px solid var(--lime); background: var(--lime); color: #0e140c;
+  cursor: pointer; font-size: 1rem; font-family: inherit; transition: background .2s;
+}
+.btn:hover { background: #a5e066; }
+.btn.ghost { background: transparent; color: var(--text); border-color: var(--sage); }
+.btn.ghost:hover { border-color: var(--lime); }
+.btn:disabled { opacity: .6; cursor: wait; }
+
+.header { position: sticky; top: 0; z-index: 20; background: rgba(17,21,18,.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand-mark { width: 28px; height: 28px; border-radius: 50%; background: #e9ebe7; color: #2b2d2b; display: grid; place-items: center; font-size: .8rem; }
+.nav { display: flex; gap: 22px; font-size: .95rem; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--text); }
+@media (max-width: 720px) { .nav { display: none; } }
+
+/* Hero: garis diagonal tipis seperti pada slide portofolio */
+.hero { position: relative; overflow: hidden; padding: 120px 0 104px; border-bottom: 1px solid var(--line); }
+
+.hero .lead { font-size: 1.2rem; max-width: 52ch; color: #cfd6cf; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+.hero-years { margin-top: 56px; display: flex; align-items: baseline; gap: 14px; color: var(--muted); }
+.hero-years strong { font-size: 3.2rem; font-weight: 300; color: var(--lime); line-height: 1; }
+
+.grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); margin-top: 36px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+.card p { margin: 0; font-size: .95rem; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.chip { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font: inherit; font-size: .9rem; cursor: pointer; }
+.chip[aria-pressed="true"] { color: #0e140c; background: var(--lime); border-color: var(--lime); }
+.project { display: flex; flex-direction: column; gap: 6px; padding: 0; overflow: hidden; }
+.project .thumb { aspect-ratio: 16/10; background: linear-gradient(160deg, #1f2a20, #151a16); border-bottom: 1px solid var(--line); display: grid; place-items: center; color: var(--sage); font-size: .85rem; }
+.project .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.project .body { padding: 18px 20px 22px; }
+.project .loc { color: var(--lime); font-size: .9rem; margin-bottom: 6px; }
+.project h3 { margin-bottom: 6px; }
+
+.safety { background: var(--surface); border-block: 1px solid var(--line); }
+.consult-box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-top: 28px; max-width: 760px; }
+textarea { width: 100%; min-height: 120px; resize: vertical; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 14px; font: inherit; }
+.result { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 20px; }
+.result dt { color: var(--sage); font-size: .9rem; margin-top: 12px; }
+.result dd { margin: 2px 0 0; }
+.result ul { margin: 6px 0 0; padding-left: 20px; color: var(--muted); }
+.error { color: #f0a58f; margin-top: 12px; }
+.small { font-size: .85rem; }
+
+.footer { padding: 40px 0 96px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+.footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+.fab { position: fixed; right: 20px; bottom: 20px; z-index: 30; box-shadow: 0 6px 24px rgba(0,0,0,.45); }
+
+
+/* Perbarui styling Hero agar bersih tanpa garis miring acak */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Hapus blok .hero::before jika sebelumnya ada */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 64px;
+  }
+}
+
+.right-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Efek Glow & Bingkai Sinematik di Belakang Video */
+.video-glow-wrapper {
+  position: relative;
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(143, 209, 79, 0.2), rgba(26, 32, 27, 0.8));
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.video-container {
+  width: 100%;
+  max-width: 270px;
+  aspect-ratio: 9 / 16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* Pengaturan Header & Mobile Menu */
+.header .wrap {
+  position: relative;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* Dropdown Menu Mobile */
+.mobile-nav-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 20px 24px;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  animation: slideDown 0.2s ease-out forwards;
+}
+
+.mobile-nav-dropdown a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.mobile-nav-dropdown a:hover {
+  color: var(--lime);
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsif: Sembunyikan nav biasa dan tampilkan tombol hamburger di layar < 720px */
+@media (max-width: 720px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+@media (min-width: 721px) {
+  .mobile-nav-dropdown {
+    display: none !important;
+  }
+}
