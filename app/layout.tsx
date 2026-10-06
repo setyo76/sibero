@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: `${SITE.name} | ${SITE.tagline}`, template: `%s | ${SITE.name}` },
   description: SITE.description,
+  // Tambahkan verifikasi Google Search Console di sini
+  verification: {
+    google: "i_ZGkWOA_O6_1Pxtz1kXQH-On4oRIvmOsxeeBVEvFRo",
+  },
   openGraph: {
     title: SITE.name,
     description: SITE.description,
@@ -13,7 +17,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     images: [
       {
-        url: "/og-image.jpg", // Sesuaikan dengan nama file gambar yang Anda taruh di folder public
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: SITE.name,
