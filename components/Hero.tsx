@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="hero">
       <div className="wrap">
         <div className="hero-grid">
-          {/* Kolom Kiri: Teks & Aksi */}
+          {/* Left column: text and actions */}
           <div className="left-hero">
             <h1>Sewa drone,<br />lengkap dengan pilotnya.</h1>
             <p className="lead">
@@ -14,7 +14,14 @@ export default function Hero() {
               yang dibutuhkan, kami yang menerbangkan dan merekam.
             </p>
             <div className="hero-actions">
-              <a className="btn" href={buildWaLink("Halo Sibero, saya ingin menanyakan sewa drone dan pilot.")} target="_blank" rel="noopener noreferrer">
+              {/* Primary action: jumps to the AI consultant section (id="konsultasi") */}
+              <a className="btn" href="#konsultasi">Ceritakan kebutuhan Anda</a>
+              <a
+                className="btn ghost"
+                href={buildWaLink("Halo Sibero, saya ingin menanyakan sewa drone dan pilot.")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Tanya via WhatsApp
               </a>
               <a className="btn ghost" href="#proyek">Lihat proyek</a>
@@ -25,17 +32,11 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Kolom Kanan: Video Vertikal dengan Efek Sinematik */}
+          {/* Right column: vertical video with cinematic glow */}
           <div className="right-hero">
             <div className="video-glow-wrapper">
               <div className="video-container">
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="hero-video"
-                >
+                <video autoPlay loop muted playsInline className="hero-video">
                   <source src="/fun-run.mp4" type="video/mp4" />
                   Browser Anda tidak mendukung tag video.
                 </video>

@@ -5,9 +5,11 @@ import type { ConsultResult } from "@/lib/types";
 
 export const runtime = "nodejs";
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+// gemini-2.5-flash is scheduled for shutdown (October 2026). Set GEMINI_MODEL in .env.local to override.
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.5-flash";
 const MAX_INPUT = 600;
 
+// Gemini structured-output schema: the model must return exactly these fields.
 const responseSchema = {
   type: "OBJECT",
   properties: {
@@ -19,6 +21,11 @@ const responseSchema = {
   },
   required: ["serviceType", "estimatedDuration", "followUpQuestions", "summary", "outOfScope"],
 };
+
+interface GeminiPart {
+  text?: string;
+  thought?: boolean;
+}
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -55,16 +62,33 @@ export async function POST(req: NextRequest) {
             responseMimeType: "application/json",
             responseSchema,
             temperature: 0.4,
-            maxOutputTokens: 700,
+            // Gemini 3 models can spend output tokens on internal reasoning, so leave headroom
+            // or the JSON gets truncated.
+            maxOutputTokens: 1500,
           },
         }),
       },
     );
-    if (!res.ok) throw new Error(`Gemini ${res.status}`);
+
+    if (!res.ok) {
+      // Log the response body to the server console so 400/403/404 causes are visible.
+      const detail = await res.text().catch(() => "");
+      throw new Error(`Gemini ${res.status} (model: ${MODEL}) ${detail.slice(0, 300)}`);
+    }
+
     const data = await res.json();
-    const text: string | undefined = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) throw new Error("Respons kosong");
-    const result = JSON.parse(text) as ConsultResult;
+    const candidate = data?.candidates?.[0];
+    if (candidate?.finishReason === "MAX_TOKENS") throw new Error("Output truncated (MAX_TOKENS)");
+
+    // Join the answer parts and skip any "thought" parts a reasoning model may return.
+    const parts: GeminiPart[] = candidate?.content?.parts ?? [];
+    const text = parts.filter((p) => !p.thought && p.text).map((p) => p.text).join("");
+    if (!text) throw new Error("Empty response");
+
+    // Tolerate accidental ```json fences.
+    const clean = text.replace(/```json|```/g, "").trim();
+    const result = JSON.parse(clean) as ConsultResult;
+    if (!Array.isArray(result.followUpQuestions)) result.followUpQuestions = [];
     return NextResponse.json(result);
   } catch (err) {
     console.error("consult error", err);

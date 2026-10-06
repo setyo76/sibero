@@ -4,6 +4,21 @@ import { useState } from "react";
 import type { ConsultResult } from "@/lib/types";
 import { buildWaLink } from "@/lib/whatsapp";
 
+const STEPS = [
+  {
+    title: "Ceritakan kebutuhan",
+    text: "Tulis lokasi, jenis acara atau proyek, dan hasil yang diinginkan.",
+  },
+  {
+    title: "Terima saran dan ringkasan",
+    text: "Asisten menyarankan layanan yang cocok dan menyusun ringkasan kebutuhan Anda.",
+  },
+  {
+    title: "Tim menghubungi Anda",
+    text: "Kirim ringkasan lewat WhatsApp. Tim kami membalas dengan penawaran, jadwal, dan konfirmasi izin.",
+  },
+];
+
 export default function Consultant() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,36 +55,52 @@ export default function Consultant() {
         <h2>Ceritakan kebutuhan Anda</h2>
         <p>Tulis lokasi, jenis acara atau proyek, dan hasil yang diinginkan. Asisten akan menyarankan layanan dan menyiapkan ringkasan untuk tim kami.</p>
 
-        <div className="consult-box">
-          <label htmlFor="need" className="small">Kebutuhan Anda</label>
-          <textarea
-            id="need"
-            value={message}
-            maxLength={600}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Contoh: Dokumentasi lomba lari 5.000 peserta di BSD bulan depan, butuh video untuk media sosial."
-          />
-          <div style={{ display: "flex", gap: 12, marginTop: 14, flexWrap: "wrap" }}>
-            <button className="btn" onClick={submit} disabled={loading || message.trim().length < 10}>
-              {loading ? "Menyusun saran..." : "Minta saran"}
-            </button>
-            <a className="btn ghost" href={buildWaLink(waText)} target="_blank" rel="noopener noreferrer">Langsung ke WhatsApp</a>
+        <div className="consult-grid">
+          {/* Left: the form and the AI result */}
+          <div className="consult-box">
+            <label htmlFor="need" className="small">Kebutuhan Anda</label>
+            <textarea
+              id="need"
+              value={message}
+              maxLength={600}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Contoh: Dokumentasi lomba lari 5.000 peserta di BSD bulan depan, butuh video untuk media sosial."
+            />
+            <div style={{ display: "flex", gap: 12, marginTop: 14, flexWrap: "wrap" }}>
+              <button className="btn" onClick={submit} disabled={loading || message.trim().length < 10}>
+                {loading ? "Menyusun saran..." : "Minta saran"}
+              </button>
+              <a className="btn ghost" href={buildWaLink(waText)} target="_blank" rel="noopener noreferrer">Langsung ke WhatsApp</a>
+            </div>
+
+            {error && <p className="error" role="alert">{error}</p>}
+
+            {result && (
+              <div className="result" aria-live="polite">
+                <dl>
+                  <dt>Layanan yang cocok</dt><dd>{result.serviceType}</dd>
+                  <dt>Perkiraan durasi</dt><dd>{result.estimatedDuration}</dd>
+                  <dt>Yang perlu kami ketahui</dt>
+                  <dd><ul>{result.followUpQuestions.map((q) => <li key={q}>{q}</li>)}</ul></dd>
+                </dl>
+                <p className="small">Saran ini bersifat awal. Harga, jadwal, dan izin terbang dikonfirmasi oleh tim.</p>
+                <a className="btn" href={buildWaLink(waText)} target="_blank" rel="noopener noreferrer">Kirim ringkasan ke tim via WhatsApp</a>
+              </div>
+            )}
           </div>
 
-          {error && <p className="error" role="alert">{error}</p>}
-
-          {result && (
-            <div className="result" aria-live="polite">
-              <dl>
-                <dt>Layanan yang cocok</dt><dd>{result.serviceType}</dd>
-                <dt>Perkiraan durasi</dt><dd>{result.estimatedDuration}</dd>
-                <dt>Yang perlu kami ketahui</dt>
-                <dd><ul>{result.followUpQuestions.map((q) => <li key={q}>{q}</li>)}</ul></dd>
-              </dl>
-              <p className="small">Saran ini bersifat awal. Harga, jadwal, dan izin terbang dikonfirmasi oleh tim.</p>
-              <a className="btn" href={buildWaLink(waText)} target="_blank" rel="noopener noreferrer">Kirim ringkasan ke tim via WhatsApp</a>
-            </div>
-          )}
+          {/* Right: how it works */}
+          <aside className="how-panel" aria-labelledby="how-title">
+            <h3 id="how-title">Cara kerjanya</h3>
+            <ol className="how-steps">
+              {STEPS.map((s) => (
+                <li key={s.title}>
+                  <strong>{s.title}</strong>
+                  <p>{s.text}</p>
+                </li>
+              ))}
+            </ol>
+          </aside>
         </div>
       </div>
     </section>

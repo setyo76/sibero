@@ -204,3 +204,86 @@ textarea { width: 100%; min-height: 120px; resize: vertical; background: var(--b
     display: none !important;
   }
 }
+
+/* Append to the end of app/globals.css */
+
+/* Keep anchored sections from hiding under the sticky header */
+section[id] { scroll-margin-top: 72px; }
+
+/* Placeholder: more readable on the dark background, still lighter than typed text */
+textarea::placeholder { color: #8f9a91; opacity: 1; }
+
+/* Consultant: form on the left, "how it works" panel on the right */
+.consult-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 28px;
+  margin-top: 28px;
+  align-items: start;
+}
+.consult-grid .consult-box { max-width: none; margin-top: 0; }
+
+.how-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.how-panel h3 { margin-bottom: 18px; }
+.how-steps { list-style: none; margin: 0; padding: 0; counter-reset: step; display: grid; gap: 22px; }
+.how-steps li { position: relative; padding-left: 44px; counter-increment: step; }
+.how-steps li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--lime); color: var(--lime);
+  display: grid; place-items: center; font-size: .9rem;
+}
+.how-steps strong { display: block; margin-bottom: 2px; }
+.how-steps p { margin: 0; font-size: .95rem; }
+
+@media (max-width: 860px) {
+  .consult-grid { grid-template-columns: 1fr; }
+}
+
+/* Append to the end of app/globals.css */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+/* Left column */
+.contact-list { margin: 36px 0 0; display: grid; gap: 14px; }
+.contact-list div { display: flex; gap: 16px; align-items: baseline; border-top: 1px solid var(--line); padding-top: 14px; }
+.contact-list dt { color: var(--sage); min-width: 92px; font-size: .9rem; }
+.contact-list dd { margin: 0; }
+.contact-main > p { margin-bottom: 24px; }
+
+/* Right column */
+.contact-trust { border-left: 1px solid var(--line); padding-left: 48px; }
+.trust-title { font-size: 1.6rem; font-weight: 300; margin-bottom: 20px; }
+.strengths { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+.strengths li { border-top: 1px solid var(--line); padding-top: 16px; }
+.strengths strong { display: block; margin-bottom: 2px; }
+.strengths p { margin: 0; font-size: .95rem; }
+
+/* In app/globals.css: DELETE the old "Testimonials" block (.quotes, .quote, .quotes-track,
+   @keyframes quotes-scroll and its prefers-reduced-motion rule), then append this. */
+
+.ticker-title { color: var(--sage); font-size: .9rem; font-weight: 400; margin: 32px 0 12px; }
+
+/* The viewport is exactly one card tall and clips the rest, so there is no scrollbar. */
+.ticker { --ticker-h: 168px; height: var(--ticker-h); overflow: hidden; border-radius: var(--radius); }
+.ticker-track { will-change: transform; }
+.ticker-card {
+  height: var(--ticker-h); margin: 0; padding: 22px 24px; box-sizing: border-box;
+  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.ticker-card blockquote {
+  margin: 0; color: var(--text); font-size: 1.1rem; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ticker-card figcaption { color: var(--sage); font-size: .9rem; }
