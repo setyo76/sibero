@@ -45,16 +45,16 @@ export default function Contact() {
             <dl className="contact-list">
               <div>
                 <dt>WhatsApp</dt>
-                <dd><a href={buildWaLink()} target="_blank" rel="noopener noreferrer">{SITE.whatsappDisplay}</a></dd>
+                <dd><a className="contact-link" href={buildWaLink()} target="_blank" rel="noopener noreferrer">{SITE.whatsappDisplay}</a></dd>
               </div>
               <div>
                 <dt>Email</dt>
-                <dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
+                <dd><a className="contact-link" href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
               </div>
               <div>
                 <dt>Instagram</dt>
                 <dd>
-                  <a href={`https://instagram.com/${SITE.instagram}`} target="_blank" rel="noopener noreferrer">
+                  <a className="contact-link" href={`https://instagram.com/${SITE.instagram}`} target="_blank" rel="noopener noreferrer">
                     @{SITE.instagram}
                   </a>
                 </dd>

@@ -343,3 +343,5 @@ section { padding: 56px 0; }
   .footer { padding-bottom: 40px; }
   .fab { padding: 13px 24px; right: 20px; bottom: 20px; }
 }
+
+.contact-link { display: inline-block; padding: 10px 0; }
