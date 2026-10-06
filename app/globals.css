@@ -287,3 +287,59 @@ textarea::placeholder { color: #8f9a91; opacity: 1; }
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .ticker-card figcaption { color: var(--sage); font-size: .9rem; }
+
+/* Append to the VERY END of app/globals.css.
+   Mobile-first: one column by default, two columns from 861px up.
+   It overrides the older .contact-grid / .consult-grid rules, so you don't have to delete them. */
+
+/* ---------- Contact section ---------- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+.contact-trust {
+  border-left: 0;
+  padding-left: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 32px;
+}
+.contact-main .btn { display: block; text-align: center; }
+.contact-list div { flex-wrap: wrap; gap: 4px 16px; }
+.contact-list dt { min-width: 92px; }
+.contact-list dd { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- Consultant section ---------- */
+.consult-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.consult-box { padding: 20px; }
+.consult-box .btn { width: 100%; text-align: center; }
+.how-panel { padding: 22px; }
+
+/* ---------- General mobile spacing ---------- */
+section { padding: 56px 0; }
+.ticker { --ticker-h: 196px; }
+.footer { padding-bottom: 104px; }
+.fab { padding: 11px 18px; right: 16px; bottom: 16px; }
+
+/* ---------- Tablet and desktop ---------- */
+@media (min-width: 861px) {
+  section { padding: 88px 0; }
+
+  .contact-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; }
+  .contact-trust { border-top: 0; padding-top: 0; border-left: 1px solid var(--line); padding-left: 48px; }
+  .contact-main .btn { display: inline-block; }
+
+  .consult-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; }
+  .consult-box { padding: 28px; }
+  .consult-box .btn { width: auto; }
+  .how-panel { padding: 28px; }
+
+  .ticker { --ticker-h: 168px; }
+  .footer { padding-bottom: 40px; }
+  .fab { padding: 13px 24px; right: 20px; bottom: 20px; }
+}
